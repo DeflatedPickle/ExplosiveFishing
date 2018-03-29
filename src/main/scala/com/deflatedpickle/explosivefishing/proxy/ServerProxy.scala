@@ -6,5 +6,6 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent
 
 class ServerProxy extends CommonProxy {
   override def init(event: FMLInitializationEvent): Unit = {
+    MinecraftForge.EVENT_BUS.register(new ForgeEventHandler)
   }
 }
