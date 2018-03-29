@@ -1,0 +1,16 @@
+[
+  {
+    "modid": "explosivefishing",
+    "name": "ExplosiveFishing",
+    "description": "A Minecraft Forge mod that lets you fish with explosions.",
+    "version": "${version}",
+    "mcversion": "${mcversion}",
+    "url": "https://github.com/DeflatedPickle/ExplosiveFishing",
+    "updateUrl": "",
+    "authorList": ["DeflatedPickle"],
+    "credits": "Forge, FML, DeflatedPickle",
+    "logoFile": "",
+    "screenshots": [],
+    "dependencies": []
+  }
+]
