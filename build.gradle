@@ -1,0 +1,61 @@
+buildscript {
+    repositories {
+        jcenter()
+        maven { url = "http://files.minecraftforge.net/maven" }
+    }
+    dependencies {
+        classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
+    }
+}
+
+apply plugin: 'scala'
+apply plugin: 'net.minecraftforge.gradle.forge'
+
+// Versions follow this format: MCVERSION-MAJORMOD.MAJORAPI.MINOR.PATCH.
+version = "1.12.2-1.0.0.0"
+group = "com.deflatedpickle.explosivefishing"
+archivesBaseName = "explosivefishing"
+
+tasks.compileScala.dependsOn.remove("compileJava")
+sourceCompatibility = targetCompatibility = '1.8'
+compileJava {
+    dependsOn compileScala
+    sourceCompatibility = targetCompatibility = '1.8'
+}
+
+sourceSets {
+    main {
+        scala {
+            srcDirs = ['src/main/scala', 'src/main/java']
+        }
+        java {
+            srcDirs = []
+        }
+    }
+}
+
+minecraft {
+    version = "1.12.2-14.23.0.2491"
+    runDir = "run"
+
+    mappings = "snapshot_20171002"
+}
+
+dependencies {
+    compile 'org.scala-lang:scala-library:2.12.5'
+}
+
+processResources {
+    inputs.property "version", project.version
+    inputs.property "mcversion", project.minecraft.version
+
+    from(sourceSets.main.resources.srcDirs) {
+        include 'mcmod.info'
+
+        expand 'version':project.version, 'mcversion':project.minecraft.version
+    }
+
+    from(sourceSets.main.resources.srcDirs) {
+        exclude 'mcmod.info'
+    }
+}
