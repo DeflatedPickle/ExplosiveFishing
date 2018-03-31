@@ -21,6 +21,5 @@ build
 eclipse
 run
 
-gradle/
 classes/
 libs/
