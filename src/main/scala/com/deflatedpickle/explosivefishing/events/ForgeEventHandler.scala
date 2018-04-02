@@ -2,6 +2,7 @@ package com.deflatedpickle.explosivefishing.events
 
 import java.util.Random
 
+import com.deflatedpickle.explosivefishing.config.GeneralConfig
 import com.deflatedpickle.picklelib.water.WaterBody
 import net.minecraft.entity.item.EntityItem
 import net.minecraft.init.Blocks
@@ -28,8 +29,8 @@ class ForgeEventHandler {
 
       val waterBody = new WaterBody(event.getWorld, position)
 
-      val fish = Math.min(waterBody.getSimpleVolume, event.getExplosion.size.toInt) * 3
-      val amount = 2 + random.nextInt(fish)
+      val fish = Math.min(waterBody.getSimpleVolume, event.getExplosion.size.toInt) * GeneralConfig.lootPerBlock
+      val amount = GeneralConfig.minimumLoot + random.nextInt(fish)
 
       for (_ <- 0 to amount) {
         val loot = event.getWorld.getLootTableManager.getLootTableFromLocation(LootTableList.GAMEPLAY_FISHING).generateLootForPools(new Random(), new LootContext.Builder(event.getWorld.getMinecraftServer.getWorld(0)).build())

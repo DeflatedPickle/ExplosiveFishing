@@ -2,6 +2,7 @@ package com.deflatedpickle.explosivefishing
 
 import com.deflatedpickle.explosivefishing.events.ForgeEventHandler
 import net.minecraftforge.common.MinecraftForge
+import net.minecraftforge.common.config.Configuration
 import net.minecraftforge.fml.common.Mod
 import net.minecraftforge.fml.common.Mod.EventHandler
 import net.minecraftforge.fml.common.event.FMLInitializationEvent
@@ -10,6 +11,8 @@ import org.apache.logging.log4j.Logger
 
 @Mod(modid = Reference.MOD_ID, name = Reference.NAME, version = Reference.VERSION, acceptedMinecraftVersions = Reference.ACCEPTED_VERSIONS, modLanguage = "scala")
 object ExplosiveFishing {
+  var configuration: Configuration = _
+
   val log: Logger = LogManager.getLogger(Reference.NAME)
 
   @EventHandler
