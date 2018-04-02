@@ -39,10 +39,20 @@ minecraft {
     runDir = "run"
 
     mappings = "snapshot_20171002"
+
+    useDepAts = true
+}
+
+repositories {
+    maven {
+        name = "CurseForge"
+        url = "https://minecraft.curseforge.com/api/maven/"
+    }
 }
 
 dependencies {
     compile 'org.scala-lang:scala-library:2.12.5'
+    deobfCompile "picklelib:picklelib:1.12.2:1.0.4.0"
 }
 
 processResources {
