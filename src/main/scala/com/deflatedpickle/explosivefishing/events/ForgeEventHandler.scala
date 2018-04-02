@@ -35,7 +35,7 @@ class ForgeEventHandler {
       for (_ <- 0 to amount) {
         val loot = event.getWorld.getLootTableManager.getLootTableFromLocation(LootTableList.GAMEPLAY_FISHING).generateLootForPools(new Random(), new LootContext.Builder(event.getWorld.getMinecraftServer.getWorld(0)).build())
 
-        val itemEntity = new EntityItem(event.getWorld, x + random.nextInt(waterBody.getSimpleWidth), y + 1, z + random.nextInt(waterBody.getSimpleLength), loot.get(0))
+        val itemEntity = new EntityItem(event.getWorld, x + random.nextInt(event.getExplosion.size.toInt / 2), y + 1, z + random.nextInt(event.getExplosion.size.toInt / 2), loot.get(0))
         event.getWorld.spawnEntity(itemEntity)
       }
     }
