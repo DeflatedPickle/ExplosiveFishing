@@ -12,7 +12,7 @@ apply plugin: 'scala'
 apply plugin: 'net.minecraftforge.gradle.forge'
 
 // Versions follow this format: MCVERSION-MAJORMOD.MAJORAPI.MINOR.PATCH.
-version = "1.12.2-1.0.2.1"
+version = "1.12.2-1.0.3.1"
 group = "com.deflatedpickle.explosivefishing"
 archivesBaseName = "explosivefishing"
 
@@ -52,7 +52,7 @@ repositories {
 
 dependencies {
     compile 'org.scala-lang:scala-library:2.12.5'
-    deobfCompile "picklelib:picklelib:1.12.2:1.0.4.0"
+    deobfCompile "picklelib:picklelib:1.12.2:1.0.5.0"
 }
 
 processResources {

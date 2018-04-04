@@ -3,7 +3,9 @@ package com.deflatedpickle.explosivefishing.events
 import java.util.Random
 
 import com.deflatedpickle.explosivefishing.config.GeneralConfig
-import com.deflatedpickle.picklelib.water.WaterBody
+import com.deflatedpickle.picklelib.api.IFishable
+import com.deflatedpickle.picklelib.world.BlockBody
+import net.minecraft.block.material.Material
 import net.minecraft.entity.item.EntityItem
 import net.minecraft.init.Blocks
 import net.minecraft.util.math.BlockPos
@@ -24,19 +26,23 @@ class ForgeEventHandler {
 
     val position = new BlockPos(x, y, z)
 
-    if (event.getWorld.getBlockState(position).getBlock == Blocks.WATER) {
-      val random = new Random()
+    if (event.getWorld.getBlockState(position).getMaterial == Material.WATER) {
+      val block = event.getWorld.getBlockState(position).getBlock
 
-      val waterBody = new WaterBody(event.getWorld, position)
+      if (block == Blocks.WATER || block.isInstanceOf[IFishable] && block.asInstanceOf[IFishable].isFishable) {
+        val random = new Random()
 
-      val fish = Math.min(waterBody.getSimpleVolume, event.getExplosion.size.toInt) * GeneralConfig.lootPerBlock
-      val amount = GeneralConfig.minimumLoot + random.nextInt(fish)
+        val waterBody = new BlockBody(event.getWorld, position, Blocks.WATER)
 
-      for (_ <- 0 to amount) {
-        val loot = event.getWorld.getLootTableManager.getLootTableFromLocation(LootTableList.GAMEPLAY_FISHING).generateLootForPools(new Random(), new LootContext.Builder(event.getWorld.getMinecraftServer.getWorld(0)).build())
+        val fish = Math.min(waterBody.getSimpleVolume, event.getExplosion.size.toInt) * GeneralConfig.lootPerBlock
+        val amount = GeneralConfig.minimumLoot + random.nextInt(fish)
 
-        val itemEntity = new EntityItem(event.getWorld, x + random.nextInt(event.getExplosion.size.toInt / 2), y + 1, z + random.nextInt(event.getExplosion.size.toInt / 2), loot.get(0))
-        event.getWorld.spawnEntity(itemEntity)
+        for (_ <- 0 to amount) {
+          val loot = event.getWorld.getLootTableManager.getLootTableFromLocation(LootTableList.GAMEPLAY_FISHING).generateLootForPools(new Random(), new LootContext.Builder(event.getWorld.getMinecraftServer.getWorld(0)).build())
+
+          val itemEntity = new EntityItem(event.getWorld, x + random.nextInt(event.getExplosion.size.toInt / 2), y + 1, z + random.nextInt(event.getExplosion.size.toInt / 2), loot.get(0))
+          event.getWorld.spawnEntity(itemEntity)
+        }
       }
     }
   }
