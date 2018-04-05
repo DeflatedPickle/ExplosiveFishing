@@ -9,6 +9,7 @@ import net.minecraft.block.material.Material
 import net.minecraft.entity.item.EntityItem
 import net.minecraft.init.Blocks
 import net.minecraft.util.math.BlockPos
+import net.minecraft.world.WorldServer
 import net.minecraft.world.storage.loot.{LootContext, LootTableList}
 import net.minecraftforge.event.world.ExplosionEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
@@ -38,7 +39,7 @@ class ForgeEventHandler {
         val amount = GeneralConfig.minimumLoot + random.nextInt(fish)
 
         for (_ <- 0 to amount) {
-          val loot = event.getWorld.getLootTableManager.getLootTableFromLocation(LootTableList.GAMEPLAY_FISHING).generateLootForPools(new Random(), new LootContext.Builder(event.getWorld.getMinecraftServer.getWorld(0)).build())
+          val loot = event.getWorld.getLootTableManager.getLootTableFromLocation(LootTableList.GAMEPLAY_FISHING).generateLootForPools(new Random(), new LootContext.Builder(event.getWorld.asInstanceOf[WorldServer]).build())
 
           val itemEntity = new EntityItem(event.getWorld, x + random.nextInt(event.getExplosion.size.toInt / 2), y + 1, z + random.nextInt(event.getExplosion.size.toInt / 2), loot.get(0))
           event.getWorld.spawnEntity(itemEntity)
