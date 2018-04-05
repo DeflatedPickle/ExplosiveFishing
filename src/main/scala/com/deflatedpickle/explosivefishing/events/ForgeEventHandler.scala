@@ -32,7 +32,7 @@ class ForgeEventHandler {
       if (block == Blocks.WATER || block.isInstanceOf[IFishable] && block.asInstanceOf[IFishable].isFishable) {
         val random = new Random()
 
-        val waterBody = new BlockBody(event.getWorld, position, Blocks.WATER)
+        val waterBody = new BlockBody(event.getWorld, position, block)
 
         val fish = Math.min(waterBody.getSimpleVolume, event.getExplosion.size.toInt) * GeneralConfig.lootPerBlock
         val amount = GeneralConfig.minimumLoot + random.nextInt(fish)
