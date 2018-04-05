@@ -16,10 +16,6 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 
 class ForgeEventHandler {
   @SubscribeEvent
-  def onExplosionEventStart(event: ExplosionEvent.Start): Unit = {
-  }
-
-  @SubscribeEvent
   def onExplosionEventDetonate(event: ExplosionEvent.Detonate): Unit = {
     val x = event.getExplosion.getPosition.x
     val y = event.getExplosion.getPosition.y
