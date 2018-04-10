@@ -34,10 +34,12 @@ class ForgeEventHandler {
         val fish = Math.min(waterBody.getSimpleVolume, event.getExplosion.size.toInt) * GeneralConfig.lootPerBlock
         val amount = GeneralConfig.minimumLoot + random.nextInt(fish)
 
+        val explosionSize = event.getExplosion.size.toInt + 1
+
         for (_ <- 0 to amount) {
           val loot = event.getWorld.getLootTableManager.getLootTableFromLocation(LootTableList.GAMEPLAY_FISHING).generateLootForPools(new Random(), new LootContext.Builder(event.getWorld.asInstanceOf[WorldServer]).build())
 
-          val itemEntity = new EntityItem(event.getWorld, x + random.nextInt(event.getExplosion.size.toInt / 2), y + 1, z + random.nextInt(event.getExplosion.size.toInt / 2), loot.get(0))
+          val itemEntity = new EntityItem(event.getWorld, x + random.nextInt(explosionSize) - (explosionSize / 2), y + random.nextInt(explosionSize) - (explosionSize / 2), z + random.nextInt(explosionSize) - (explosionSize / 2), loot.get(0))
           event.getWorld.spawnEntity(itemEntity)
         }
       }
