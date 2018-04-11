@@ -15,6 +15,8 @@ import net.minecraftforge.event.world.ExplosionEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 
 class ForgeEventHandler {
+  private var spawnCounter = 0
+
   @SubscribeEvent
   def onExplosionEventDetonate(event: ExplosionEvent.Detonate): Unit = {
     val x = event.getExplosion.getPosition.x
@@ -36,13 +38,21 @@ class ForgeEventHandler {
 
         val explosionSize = event.getExplosion.size.toInt + 1
 
-        for (_ <- 0 to amount) {
-          val loot = event.getWorld.getLootTableManager.getLootTableFromLocation(LootTableList.GAMEPLAY_FISHING).generateLootForPools(new Random(), new LootContext.Builder(event.getWorld.asInstanceOf[WorldServer]).build())
-
-          val itemEntity = new EntityItem(event.getWorld, x + random.nextInt(explosionSize) - (explosionSize / 2), y + random.nextInt(explosionSize) - (explosionSize / 2), z + random.nextInt(explosionSize) - (explosionSize / 2), loot.get(0))
-          event.getWorld.spawnEntity(itemEntity)
-        }
+        spawnCounter = amount
+        spawnItems(event, x, y, z, random, explosionSize)
       }
+    }
+  }
+
+  def spawnItems(event: ExplosionEvent, x: Double, y: Double, z: Double, random: Random, explosionSize: Int): Unit = {
+    if (spawnCounter >= 1) {
+      val loot = event.getWorld.getLootTableManager.getLootTableFromLocation(LootTableList.GAMEPLAY_FISHING).generateLootForPools(new Random(), new LootContext.Builder(event.getWorld.asInstanceOf[WorldServer]).build())
+
+      val itemEntity = new EntityItem(event.getWorld, x + random.nextInt(explosionSize) - (explosionSize / 2), y + random.nextInt(explosionSize) - (explosionSize / 2), z + random.nextInt(explosionSize) - (explosionSize / 2), loot.get(0))
+      event.getWorld.spawnEntity(itemEntity)
+
+      spawnCounter -= 1
+      spawnItems(event, x, y, z, random, explosionSize)
     }
   }
 }
