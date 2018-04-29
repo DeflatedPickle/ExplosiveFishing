@@ -22,6 +22,19 @@ public class GeneralConfig {
     @Config.LangKey("config.explosivefishing.minimumLoot")
     public static int minimumLoot = 2;
 
+    public enum PoolEnum {
+        GAMEPLAY_FISHING,
+        GAMEPLAY_FISHING_JUNK,
+        GAMEPLAY_FISHING_FISH,
+        GAMEPLAY_FISHING_TREASURE
+
+    }
+
+    @Config.Name("Loot Pool")
+    @Config.Comment("The loot pool to choose loot from.")
+    @Config.LangKey("config.explosivefishing.lootPool")
+    public static PoolEnum lootPool = PoolEnum.GAMEPLAY_FISHING;
+
     @SubscribeEvent
     public static void onConfigChangedEvent(ConfigChangedEvent.OnConfigChangedEvent event) {
         if (event.getModID().equals(Reference.MOD_ID)) {

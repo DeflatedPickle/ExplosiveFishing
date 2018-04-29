@@ -12,7 +12,7 @@ apply plugin: 'scala'
 apply plugin: 'net.minecraftforge.gradle.forge'
 
 // Versions follow this format: MCVERSION-MAJORMOD.MAJORAPI.MINOR.PATCH.
-version = "1.12.2-1.0.3.5"
+version = "1.12.2-1.0.4.0"
 group = "com.deflatedpickle.explosivefishing"
 archivesBaseName = "explosivefishing"
 
@@ -35,7 +35,7 @@ sourceSets {
 }
 
 minecraft {
-    version = "1.12.2-14.23.0.2491"
+    version = "1.12.2-14.23.2.2654"
     runDir = "run"
 
     mappings = "snapshot_20171002"
