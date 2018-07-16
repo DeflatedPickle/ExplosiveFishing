@@ -57,6 +57,8 @@ class ForgeEventHandler {
     if (spawnCounter >= 1) {
       val loot = event.getWorld.getLootTableManager.getLootTableFromLocation(configPool).generateLootForPools(new Random(), new LootContext.Builder(event.getWorld.asInstanceOf[WorldServer]).build())
 
+      if (loot.size().equals(0)) return
+
       val itemEntity = new EntityItem(event.getWorld, x + random.nextInt(explosionSize) - (explosionSize / 2), y + random.nextInt(explosionSize) - (explosionSize / 2), z + random.nextInt(explosionSize) - (explosionSize / 2), loot.get(0))
       event.getWorld.spawnEntity(itemEntity)
 

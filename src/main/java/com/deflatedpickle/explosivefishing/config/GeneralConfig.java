@@ -27,7 +27,6 @@ public class GeneralConfig {
         GAMEPLAY_FISHING_JUNK,
         GAMEPLAY_FISHING_FISH,
         GAMEPLAY_FISHING_TREASURE
-
     }
 
     @Config.Name("Loot Pool")
